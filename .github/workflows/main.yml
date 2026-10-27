@@ -7,10 +7,8 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
-  # Job 1: Build .dylib trên macOS
   build-macos:
     runs-on: macos-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -25,15 +23,13 @@ jobs:
         name: libsecurity-macos-dylib
         path: libsecurity.dylib
 
-  # Job 2: Build .so trên Linux
   build-linux:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install Build Dependencies
+    - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential g++
