@@ -31,5 +31,5 @@ int process_match_history_action(int user_id, int match_id, int action_type) {
               << " for User: " << user_id << ", Match: " << match_id << std::endl;
     
     if (action_type < 1 || action_type > 2) return -1;
-    return 0; // Success
+    return 0; 
 }
