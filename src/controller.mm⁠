@@ -5,8 +5,7 @@
 
 - (BOOL)isRequestFromAIBot:(NSString *)userAgent {
     if (!userAgent) return YES;
-    const char *cUserAgent = [userAgent UTF8String];
-    return (check_and_block_ai_bot(cUserAgent) == 1);
+    return (check_and_block_ai_bot([userAgent UTF8String]) == 1);
 }
 
 - (BOOL)deleteOrHideMatchHistoryForUser:(NSInteger)userId 
