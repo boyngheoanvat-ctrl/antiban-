@@ -1,0 +1,23 @@
+#import "../include/security_core.h"
+#import <Foundation/Foundation.h>
+
+@implementation SecurityController
+
+- (BOOL)isRequestFromAIBot:(NSString *)userAgent {
+    if (!userAgent) return YES;
+    
+    const char *cUserAgent = [userAgent UTF8String];
+    int result = check_and_block_ai_bot(cUserAgent);
+    
+    return (result == 1);
+}
+
+- (BOOL)deleteOrHideMatchHistoryForUser:(NSInteger)userId 
+                                matchId:(NSInteger)matchId 
+                             actionType:(NSInteger)actionType {
+    
+    int result = process_match_history_action((int)userId, (int)matchId, (int)actionType);
+    return (result == 0);
+}
+
+@end
