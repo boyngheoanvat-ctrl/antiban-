@@ -1,0 +1,47 @@
+#include "security_plugin.h"
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+
+// Nếu chạy trên macOS, có thể tích hợp thêm Cocoa/Foundation nếu cần
+#ifdef __APPLE__
+#import <Foundation/Foundation.h>
+#endif
+
+extern "C" {
+
+    int check_and_block_ai_bot(const char* user_agent_str) {
+        if (!user_agent_str) {
+            return 1; // Chặn nếu không có User-Agent
+        }
+
+        std::string ua(user_agent_str);
+        std::transform(ua.begin(), ua.end(), ua.begin(), ::tolower);
+
+        std::vector<std::string> forbidden_bots = {
+            "gptbot", "chatgpt-user", "google-extended", 
+            "anthropic-ai", "claudebot", "ccbot", 
+            "perplexitybot", "bytespider"
+        };
+
+        for (const auto& bot : forbidden_bots) {
+            if (ua.find(bot) != std::string::npos) {
+                std::cout << "[Security Plugin] Blocked AI Bot: " << bot << std::endl;
+                return 1;
+            }
+        }
+
+        return 0;
+    }
+
+    int process_match_history_action(int user_id, int match_id, int action_type) {
+        std::cout << "[Security Plugin] Processing User ID: " << user_id 
+                  << ", Match ID: " << match_id 
+                  << ", Action: " << action_type << std::endl;
+        
+        // Giả lập xử lý thành công
+        return 0; 
+    }
+
+}
