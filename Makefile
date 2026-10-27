@@ -8,7 +8,7 @@ OBJCFLAGS = -fobjc-arc -framework Foundation
 
 all: build_all
 
-# Tự động tạo thư mục và nội dung file nếu trên GitHub chưa có
+# Tự động tạo thư mục và nội dung file chuẩn không lỗi
 auto_generate_files:
 	@mkdir -p include src
 	@if [ ! -f "include/security_core.h" ]; then \
@@ -17,7 +17,7 @@ auto_generate_files:
 	fi
 	@if [ ! -f "src/security_core.cpp" ]; then \
 		echo "Generating src/security_core.cpp..."; \
-		printf "#include \"../include/security_core.h\"\n#include <iostream>\n#include <string>\n#include <vector>\n#include <algorithm>\nint check_and_block_ai_bot(const char* user_agent_str) {\n    if (!user_agent_str) return 1;\n    std::string ua(user_agent_str);\n    std::transform(ua.begin(), ua.end(), ua.begin(), ::tolower);\n    std::vector<string> bots = {\"gptbot\", \"chatgpt-user\", \"google-extended\", \"anthropic-ai\"};\n    for (const auto& b : bots) { if (ua.find(b) != std::string::npos) return 1; }\n    return 0;\n}\nint process_match_history_action(int uid, int mid, int act) {\n    if (act < 1 || act > 2) return -1;\n    return 0;\n}\n" > src/security_core.cpp; \
+		printf "#include \"../include/security_core.h\"\n#include <iostream>\n#include <string>\n#include <vector>\n#include <algorithm>\nint check_and_block_ai_bot(const char* user_agent_str) {\n    if (!user_agent_str) return 1;\n    std::string ua(user_agent_str);\n    std::transform(ua.begin(), ua.end(), ua.begin(), ::tolower);\n    std::vector<std::string> bots = {\"gptbot\", \"chatgpt-user\", \"google-extended\", \"anthropic-ai\"};\n    for (const auto& b : bots) { if (ua.find(b) != std::string::npos) return 1; }\n    return 0;\n}\nint process_match_history_action(int uid, int mid, int act) {\n    if (act < 1 || act > 2) return -1;\n    return 0;\n}\n" > src/security_core.cpp; \
 	fi
 	@if [ ! -f "src/controller.mm" ]; then \
 		echo "Generating src/controller.mm..."; \
