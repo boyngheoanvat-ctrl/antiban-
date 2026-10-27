@@ -5,10 +5,10 @@
 extern "C" {
 #endif
 
-// Hàm chặn AI Bot / Crawler
+// Hàm kiểm tra và chặn Bot / AI Crawler
 int check_and_block_ai_bot(const char* user_agent_str);
 
-// Hàm xử lý lịch sử trận đấu (1 = Ẩn/Soft Delete, 2 = Xóa/Hard Delete)
+// Hàm xử lý lịch sử đấu (1 = Ẩn/Soft Delete, 2 = Xóa/Hard Delete)
 int process_match_history_action(int user_id, int match_id, int action_type);
 
 #ifdef __OBJC__
